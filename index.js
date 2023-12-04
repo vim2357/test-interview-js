@@ -13,8 +13,28 @@
   @return Array<Array<number>>
 */
 function sostavChisla(massivChisel, chislo) {
-	// код писать только внутри данной функции
-	return [[1, 2], [3]];
+  const res = [];
+
+  function findCombinations(index, chislo, currentCombination) {
+    if (chislo === 0) {
+      res.push([...currentCombination]);
+      return res;
+    }
+
+    for (let i = index; i < massivChisel.length; i++) {
+      const num = massivChisel[i];
+
+      if (num <= chislo && !currentCombination.includes(num)) {
+        currentCombination.push(num);
+        findCombinations(i + 1, chislo - num, currentCombination);
+        currentCombination.pop();
+      }
+    }
+  }
+
+  findCombinations(0, chislo, []);
+
+  return res;
 }
 
 // console.log(sostavChisla([8, 2, 3, 4, 6, 7, 1], 99));
